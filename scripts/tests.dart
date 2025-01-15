@@ -39,9 +39,9 @@ void processForecast(Map<String, dynamic> forecast){
   // The proper values that will be useful. i.e. temperature, shortForecast, longForecast
   // for now, don't return anything, just assign values for each
   // i.e. String shortForcast = "";
-  String temperature = forecast["temperature"];
+  int temperature = forecast["temperature"];
   String temperatureUnit = forecast["temperatureUnit"];
   String shortForcast = forecast["icon"]["shortForecast"];
-  String longForecast = forecast["icon"]["longForecast"];
-  
+  String longForecast = forecast["icon"]["detailedForecast"];
+
 }
