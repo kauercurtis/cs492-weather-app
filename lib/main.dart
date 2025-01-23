@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:weatherapp/scripts/tests.dart' as tests;
 import 'package:weatherapp/scripts/location.dart' as location;
+import 'package:weatherapp/scripts/forecast.dart' as forecast;
 
 void main() {
   runApp(const MyApp());
@@ -61,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // TODO: Add a new list of forecast.Forecast variable called _forecasts
   location.Location? _currentLocation;
+  List<forecast.Forecast>? _forecasts;
 
   @override
   void initState() {
@@ -76,13 +78,21 @@ class _MyHomePageState extends State<MyHomePage> {
   // This function should use a location to call getForecastFromPoints(), passing in the lat, lon
   // use setState the same way as setLocation does to set your _forecasts to the returned forecasts
 
+  void getForecasts(location.Location currentLocation) async {
+    List<forecast.Forecast> forecasts = await forecast.getForecastFromPoints(currentLocation.latitude, currentLocation.longitude);
+    setState((){
+      _forecasts = forecasts;
+    });
+  }
+
   void setLocation() async {
     if (_currentLocation == null){
       // location.Location? currentLocation = await location.getLocationFromAddress(city, state, zip);
       location.Location? currentLocation = await location.getLocationFromGps();
 
       // TODO: Add a call to your getForecasts function passing in the currentLocation
-      
+      getForecasts(currentLocation);
+
       setState(() {
         _currentLocation = currentLocation;
       });
@@ -114,6 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               locationWidget(_currentLocation),
               // TODO: add a new call to forecastWidget that passes in _forecasts[0]
+              forecastWidget(_forecasts?[0]),
             ],
           ),
         ),
@@ -140,6 +151,18 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         Text(
           currentLocation != null ? currentLocation.zip ?? "Zip" : "Zip",
+          style: TextStyle(fontSize: 16, color: Colors.black),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+
+  Row forecastWidget(forecast.Forecast? weather) {
+    return Row(
+      children: [
+        Text(
+          weather != null ? weather.temperature.toString() : "temperature",
           style: TextStyle(fontSize: 16, color: Colors.black),
           textAlign: TextAlign.center,
         ),
