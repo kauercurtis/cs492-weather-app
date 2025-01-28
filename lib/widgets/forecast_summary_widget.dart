@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weatherapp/scripts/forecast.dart' as forecast;
 
 class ForecastSummaryWidget extends StatelessWidget {
-  const ForecastSummaryWidget({
+  const ForecastSummaryWidget(List<forecast.Forecast> forecasts, {
     super.key,
     required forecast.Forecast currentForecast,
   }) : _forecast = currentForecast;

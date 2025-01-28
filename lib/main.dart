@@ -122,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
               // This may clip off of the edge of the screen
               // Check forecastSummaryWidget for another TODO
 
-              _forecasts.isNotEmpty ? ForecastSummaryWidget(currentForecast: _forecasts[0]) : Text("")
+              ForecastSummaryWidget(forecasts: _forecasts),
             ],
           ),
         ),
