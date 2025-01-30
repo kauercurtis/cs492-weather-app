@@ -79,6 +79,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return forecast.getForecastHourlyFromPoints(currentLocation.latitude, currentLocation.longitude);
   }
 
+  void setActiveForecast(int i){
+    setState(() {
+      _activeForecast = _forecasts[i];
+    });
+  }
+
   void setLocation() async {
     if (_location == null){
       location.Location currentLocation = await location.getLocationFromGps();
@@ -119,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               LocationWidget(location: _location),
               _activeForecast != null ? ForecastWidget(forecast: _activeForecast!) : Text(""),
-              _forecasts.isNotEmpty ? ForecastSummariesWidget(forecasts: _forecasts) : Text("")
+              _forecasts.isNotEmpty ? ForecastSummariesWidget(forecasts: _forecasts, setActiveForecast: setActiveForecast) : Text("")
             ],
           ),
         ),
