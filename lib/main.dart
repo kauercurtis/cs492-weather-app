@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
               LocationWidget(location: _location),
               _activeForecast != null ? ForecastWidget(forecast: _activeForecast!) : Text(""),
               // TODO add a new ForecastSummariesWidget for the daily forecasts
-              _forecastsHourly.isNotEmpty ? ForecastSummariesWidget(forecasts: _forecastsHourly, setActiveForecast: setActiveHourlyForecast) : Text(""),
+              _filteredForecastsHourly.isNotEmpty ? ForecastSummariesWidget(forecasts: _filteredForecastsHourly, setActiveForecast: setActiveHourlyForecast) : Text(""),
               _forecasts.isNotEmpty ? ForecastSummariesWidget(forecasts: _forecasts, setActiveForecast: setActiveForecast) : Text("")
             ],
           ),
