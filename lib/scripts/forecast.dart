@@ -79,6 +79,27 @@ class Forecast{
     if (shortForecast.toLowerCase().contains("sunny")){
       return "assets/weather_icons/sunny.svg";
     }
+    else if (shortForecast.toLowerCase().contains("fog")){
+      return "fog.svg";
+    }
+    else if (shortForecast.toLowerCase().contains("snow")){
+      return "assets/weather_icons/snow_showers.svg";
+    }
+    else if (shortForecast.toLowerCase().contains("rain")){
+      return "assets/weather_icons/showers.svg";
+    }
+    else if (shortForecast.toLowerCase().contains("thunderstorm")){
+      return "assets/weather_icons/strong_tstorms.svg";
+    }
+    else if (shortForecast.toLowerCase().contains("clear")){
+      return "assets/weather_icons/clear.svg";
+    }
+    else if (shortForecast.toLowerCase().contains("cloudy")){
+      return "assets/weather_icons/cloudy.svg";
+    }
+    else if (shortForecast.toLowerCase().contains("drizzle")){
+      return "assets/weather_icons/drizzle.svg";
+    }
     else {
       return "assets/weather_icons/question.svg";
     }
