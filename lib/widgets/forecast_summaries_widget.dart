@@ -11,13 +11,12 @@ class ForecastSummariesWidget extends StatelessWidget {
   }) : _forecasts = forecasts, _setActiveForecast = setActiveForecast;
 
   final List<forecast.Forecast> _forecasts;
-  final Function _setActiveForecast;
-
-  List<onTapSummaryWidget> getForecastWidgets(){
-    List<onTapSummaryWidget> widgets = [];
+  
+  List<ForecastSummaryWidget> getForecastWidgets(){
+    List<ForecastSummaryWidget> widgets = [];
 
     for (int i = 0; i < _forecasts.length; i++){
-      widgets.add(onTapSummaryWidget(forecasts: _forecasts, i: i, setActiveForecast: _setActiveForecast));
+      widgets.add(ForecastSummaryWidget(currentForecast: _forecasts[0]));
     }
     return widgets;
   }
@@ -34,6 +33,24 @@ class onTapSummaryWidget extends StatelessWidget {
     required List<forecast.Forecast> forecasts,
     required this.i,
     required Function setActiveForecast,
+  }) : _forecasts = forecasts, _setActiveForecast = setActiveForecast;
+
+  final List<forecast.Forecast> _forecasts;
+  final int i;
+  final Function _setActiveForecast;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(onTap: () {_setActiveForecast(i);}, child: ForecastSummaryWidget(currentForecast: _forecasts[i]));
+  }
+}
+
+class OnTapSummaryWidget extends StatelessWidget {
+  const OnTapSummaryWidget({
+    super.key,
+    required List<forecast.Forecast> forecasts,
+    required this.i,
+    required Function setActiveForecast
   }) : _forecasts = forecasts, _setActiveForecast = setActiveForecast;
 
   final List<forecast.Forecast> _forecasts;
