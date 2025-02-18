@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
         
         
       });
-=======
+
   void setActiveForecast(int i){
     setState(() {
       _filteredForecastsHourly = getFilteredForecasts(i);
@@ -139,34 +139,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body:Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Center(
-          child: Column(
-            children: [
-              LocationWidget(location: _location),
-              _activeForecast != null ? ForecastWidget(forecast: _activeForecast!) : Text(""),
-              _forecasts.isNotEmpty ? ForecastSummariesWidget(forecasts: _forecasts) : Text("")
-            ],
-          ),
-=======
     return DefaultTabController(
       length: 2,
       initialIndex: 0,
@@ -190,7 +162,6 @@ class _MyHomePageState extends State<MyHomePage> {
             setActiveForecast: setActiveForecast,
             setActiveHourlyForecast: setActiveHourlyForecast),
           LocationTabWidget(setLocation: setLocation, activeLocation: _location)]
->>>>>>> d0640a235e90cbb69b653615c04f1fd0d6798993
         ),
       ),
     );

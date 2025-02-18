@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp/scripts/location.dart' as location;
 import 'package:weatherapp/scripts/location_storage.dart' as locationStorage;
+import 'package:weatherapp/scripts/location_database.dart' as location_database;
 
-
-// TODO:
-// Refer to this documentation:
-// https://docs.flutter.dev/cookbook/persistence/reading-writing-files
-// Save the saved locations List<location.Location> as json data to a file whenever a new saved location is added
-// Load the saved locations from the file on initState
-// For now you don't need to worry about deleting data or ensuring no redundant data
-// HINT: You will likely want to create a fromJson() factory and a toJson() method to the location.dart Location class
-
+// TODO: Use the new location.database.dart logic to get the locations
+// update the addLocations function to only add a single location instead of the entire list of _saved locations
+// add delete buttons to the weather widgets
+// use those to delete
+// you will need to add a delete function to the location_database.dart class
 class LocationTabWidget extends StatefulWidget {
   const LocationTabWidget({
     super.key,
@@ -31,7 +28,7 @@ class _LocationTabWidgetState extends State<LocationTabWidget> {
 
   List<location.Location> _savedLocations = [];
 
-
+  late location_database.LocationDatabase _db;
 
   void _setLocationFromAddress(String city, String state, String zip) async {
     // set location to null temporarily while it finds a new location
@@ -54,9 +51,15 @@ class _LocationTabWidgetState extends State<LocationTabWidget> {
       _savedLocations.add(location);
     });
 
-    await ls.writeLocations(_savedLocations);
-
+    _db.insertLocation(location);
     
+  }
+
+  void _deleteLocation(location.Location location) async{
+    setState((){
+      _savedLocations.remove(location);
+    });
+    _db.deleteLocation(location);
   }
 
   @override
@@ -67,11 +70,11 @@ class _LocationTabWidgetState extends State<LocationTabWidget> {
   }
 
   void _loadLocations() async {
-    List<location.Location> locations = await ls.readLocations();
-    setState(() {
+    location_database.LocationDatabase db = await location_database.LocationDatabase.open();
+    _db = db;
+    List<location.Location> locations = await _db.getLocations();
+    setState((){
       _savedLocations = locations;
-      print(locations);
-      print("test");
     });
   }
 

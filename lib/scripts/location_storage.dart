@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:weatherapp/scripts/location.dart' as location;
 
+
 class LocationStorage {
   // Getting the local path to save the file
   Future<String> get _localPath async {
