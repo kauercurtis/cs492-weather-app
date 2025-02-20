@@ -44,9 +44,8 @@ class LocationDatabase {
 
   void deleteLocation(location.Location location) async {
     String query = await rootBundle.loadString(sqlDelete);
-    _db.transaction((txn) async{
+    _db.transaction((txn) async {
       await txn.rawDelete(query, [location.zip]);
     });
   }
 }
-
