@@ -11,7 +11,7 @@ class LocationTabWidget extends StatefulWidget {
 }
 
 class _LocationTabWidgetState extends State<LocationTabWidget> {
-  var _editMode = false;
+  var _editMode = false; 
 
   @override
   Widget build(BuildContext context) {

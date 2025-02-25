@@ -4,6 +4,7 @@ import 'package:weatherapp/widgets/forecast/forecast_tab_widget.dart';
 import 'package:weatherapp/widgets/location/location_tab_widget.dart';
 import 'package:weatherapp/providers/location_provider.dart';
 import 'package:weatherapp/providers/forecast_provider.dart';
+import 'package:weatherapp/providers/dark_mode_provider.dart';
 
 // TODOS: The TODOs are located in Assignment8-1 in canvas assignments
 void main() {
@@ -12,19 +13,21 @@ void main() {
     ChangeNotifierProvider(
         create: (context) => LocationProvider(
             Provider.of<ForecastProvider>(context, listen: false))),
-  ], child: const MyApp()));
+    ChangeNotifierProvider(create: (context) => DarkModeProvider())
+  ],
+    child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   final String title = 'CS492 Weather App';
 
   @override
   Widget build(BuildContext context) {
+    var darkModeProvider = Provider.of<DarkModeProvider>(context);
     return MaterialApp(
       title: title,
-      darkTheme: ThemeData.dark(),
+      themeMode: darkModeProvider.isDark ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 143, 216, 233)),
         useMaterial3: true,
@@ -62,3 +65,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
