@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp/scripts/forecast.dart' as forecast;
-import 'package:weatherapp/widgets/forecast_summary_widget.dart';
+import 'package:weatherapp/models/forecast.dart' as forecast;
+import 'package:weatherapp/widgets/forecast/forecast_summary/forecast_summary_widget.dart';
 
 
 class ForecastSummariesWidget extends StatelessWidget {
@@ -8,7 +8,7 @@ class ForecastSummariesWidget extends StatelessWidget {
     super.key,
     required List<forecast.Forecast> forecasts,
     required Function setActiveForecast,
-  }) : _forecasts = forecasts, _setActiveForecast = setActiveForecast;
+  }) : _forecasts = forecasts;
 
   final List<forecast.Forecast> _forecasts;
   
