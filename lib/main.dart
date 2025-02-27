@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherapp/providers/settings_provider.dart';
 import 'package:weatherapp/widgets/forecast/forecast_tab_widget.dart';
@@ -85,8 +86,9 @@ class SettingsButton extends StatelessWidget {
   }
 }
 
-class SettingsDrawer extends StatelessWidget {
-  const SettingsDrawer({
+// ignore: must_be_immutable
+class SettingsDrawer extends StatefulWidget {
+  SettingsDrawer({
     super.key,
     required this.settingsProvider,
   });
@@ -94,13 +96,45 @@ class SettingsDrawer extends StatelessWidget {
   final SettingsProvider settingsProvider;
 
   @override
+  State<SettingsDrawer> createState() => _SettingsDrawerState();
+}
+
+class _SettingsDrawerState extends State<SettingsDrawer> {
+  Color pickerColor = Color(0xff443a49);
+
+  Color currentColor = Color(0xff443a49);
+
+  void changeColor(Color color) {
+    setState(() => pickerColor = color);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Switch(
-          value: settingsProvider.darkMode,
+      child: ListView(
+        children: [
+          Switch(
+          value: widget.settingsProvider.darkMode,
           onChanged: (bool value) {
-            settingsProvider.toggleMode();
+            widget.settingsProvider.toggleMode();
           }),
+          ColorPicker(
+            pickerColor: pickerColor,
+            onColorChanged: changeColor,
+          ),
+          
+          ElevatedButton(
+            child: const Text('Got it'),
+            onPressed: () {
+              setState(() => currentColor = pickerColor);
+              Navigator.of(context).pop();
+            }
+          ),
+        ]
+      ),
     );
   }
 }
+
+
+
