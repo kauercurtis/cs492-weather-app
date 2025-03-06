@@ -11,6 +11,15 @@ Future<bool> checkIfEntryExists(
   return querySnapshot.docs.isNotEmpty;
 }
 
+Future<String> getEntryByName(
+  String collectionName, String fieldName) async {
+  
+  CollectionReference locations = FirebaseFirestore.instance.collection('locations');
+  final DocumentSnapshot data = locations.doc(fieldName).get() as DocumentSnapshot<Object?>;
+  return data.get(FieldPath(['url']));
+
+}
+
 Future<int?> documentCount(String collectionName) async {
   AggregateQuerySnapshot query =
       await FirebaseFirestore.instance.collection(collectionName).count().get();

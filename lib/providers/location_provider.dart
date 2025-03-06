@@ -4,6 +4,13 @@ import 'package:weatherapp/providers/forecast_provider.dart';
 import 'package:weatherapp/utils/firebase_storage.dart' as fs;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:weatherapp/utils/get_image.dart';
+import 'package:weatherapp/utils/firebase_storage.dart';
+
+// TODOS: 
+// add location image url to location model
+// when you save an image to firebase, include a url field
+// when a new active location is selected, check if it exists, if so use that url
+// if not, query the pexels api
 
 class LocationProvider extends ChangeNotifier {
   final ForecastProvider forecastProvider;
@@ -27,10 +34,14 @@ class LocationProvider extends ChangeNotifier {
 
   void setLocation(location.Location loc) async {
     activeLocation = loc;
-    if (activeLocation != null){
+    
+    if (activeLocation?.url != null && activeLocation?.url != ""){
+      activeLocationImg = getEntryByName("locations", "city") as String?;
+    }
+    else if (activeLocation != null){
       activeLocationImg = await getImageByQuery("${activeLocation!.city} ${activeLocation!.state}");
     }
-    
+
     notifyListeners();
     if (activeLocation != null) {
       forecastProvider.initForecasts(activeLocation!);
